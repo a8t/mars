@@ -10,16 +10,16 @@ class Rover
   def move
     case direction
     when "n"
-      puts "Moving north!"
+      # puts "Moving north!"
       @y += 1
     when "e"
-      puts "Moving east!"
+      # puts "Moving east!"
       @x += 1
     when "s"
-      puts "Moving south!"
+      # puts "Moving south!"
       @y -= 1
     when "w"
-      puts "Moving west!"
+      # puts "Moving west!"
       @x -= 1
     end
   end
@@ -27,11 +27,11 @@ class Rover
   def turn(l_or_r)
     dir_array = ["n", "e", "s", "w"]
     if l_or_r == "r"
-      puts "Turning right!"
-      @direction = dir_array[(dir_array.find_index(direction) + 1)%4]
+      # puts "Turning right!"
+      @direction = dir_array[(dir_array.find_index(direction) + 1) % 4]
     else
-      puts "Turning left!"
-      @direction = dir_array[(dir_array.find_index(direction) - 1)]
+      # puts "Turning left!"
+      @direction = dir_array[(dir_array.find_index(direction) - 1) % 4]
     end
   end
 
@@ -41,16 +41,10 @@ class Rover
 
       if command == "m"
         move
-        puts "#{x} #{y} #{@direction}"
-        puts
       elsif command == "l"
         turn("l")
-        puts "#{x} #{y} #{@direction}"
-        puts
       else command == "r"
         turn("r")
-        puts "#{x} #{y} #{@direction}"
-        puts
       end
 
     end
@@ -60,7 +54,6 @@ class Rover
 
 end
 
-bob = Rover.new(3,3,"e")
 # puts bob.direction
 # bob.turn("l")
 # puts bob.direction
@@ -86,4 +79,8 @@ bob = Rover.new(3,3,"e")
 # puts
 
 
+john = Rover.new(1,2,"n")
+puts john.read_instruction("LMLMLMLMM")
+
+bob = Rover.new(3,3,"e")
 puts bob.read_instruction("MMRMMRMRRM")
