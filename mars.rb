@@ -243,6 +243,7 @@ class Plateau
   end
 
   def report(rover)
+    #show coordinates if on plateau
     if rover.plateau == self
       "#{rover} coordinates: x = #{rover.x}, y =  #{rover.y}, direction = #{rover.direction}"
     else
@@ -251,7 +252,7 @@ class Plateau
   end
 
   def report_all
-    # show coordinates for ALL rovers which are on this plateau
+    # show coordinates for ALL rovers which are on this plateau. a little clumsy but it works.
     rover_hash = {}
 
     ObjectSpace.each_object(Rover) do |rover|
@@ -264,6 +265,7 @@ class Plateau
   end
 
   def check_for_edge(rover)
+    # returns true if we're at an edge and pointed toward an edge
     rover.x == xlimit && rover.direction == "e" || rover.y == ylimit && rover.direction == "n" || rover.x == 0 && rover.direction == "w" || rover.y == 0 && rover.direction == "s"
   end
 
@@ -273,6 +275,9 @@ class Plateau
     allbutself = report_all.delete_if { |remove_rover, remove_coords| "#{remove_rover}" == "#{self_rover}"}
 
     i = 0
+
+    # depending on the current direction the rover is pointing, check if there is anything in front of it
+    # same column, +/- row or vice versa
 
     if self_rover.direction == "n"
       while i < allbutself.values.transpose[0].size
@@ -304,16 +309,6 @@ class Plateau
       end
       false
     end
-
-
-    # this works but only tests one other rover at a time
-    # allbutself.each do |compare_rover, compare_coords|
-    #
-    #
-    #   return self_rover.direction == "n" && self_rover.y == (compare_coords[1] - 1)  && self_rover.x == compare_coords[0] || self_rover.direction == "e" && self_rover.x == compare_coords[0] - 1 && self_rover.y == compare_coords[1] || self_rover.direction == "s" && self_rover.y == compare_coords[1] + 1 && self_rover.x == compare_coords[0] || self_rover.direction == "w" && self_rover.x == compare_coords[0] + 1 && self_rover.y == compare_coords[1]
-    #
-    # end
-
   end
 
 
